@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import "./App.css";
 import Header from "./component/Header/header";
 import List from "./component/List/list";
-import PubSub from 'pubsub-js';
+// import PubSub from 'pubsub-js';
 function App() {
-
+  const [hidden, setHidden] = useState("none");
+  const [todos, setTodos] = useState([
+    {
+      content: "Pick up dry cleaning",
+      isCompleted: true,
+    },
+    {
+      content: "Get haircut",
+      isCompleted: true,
+    },
+    {
+      content: "Build a todo app in React",
+      isCompleted: false,
+    },
+  ]);
+  const [n, setN] = useState();
   function deleteTodo(n) {
-    let con = prompt("是否删除");
-    if (con) {
-      todos.splice(n, 1);
-      setTodos([...todos]);
-      console.log(todos);
-    }
+    setHidden("block");
+    setN(n);
   }
   function add() {
     const button = document.getElementById("header");
@@ -26,35 +37,42 @@ function App() {
     setTodos([...todos]);
     console.log(todos);
   }
-  function changevis(){
-    setVisble([false])
-    console.log("jjj")
-    console.log(visble)
-  }
-  const [todos, setTodos] = useState([
-    {
-      content: "Pick up dry cleaning",
-      isCompleted: true,
-    },
-    {
-      content: "Get haircut",
-      isCompleted: true,
-    },
-    {
-      content: "Build a todo app in React",
-      isCompleted: false,
-    },
-  ])
-  const [visble,setVisble]=useState(true)
-  ;
 
   return (
     <div>
-      
       <Header add={add} />
       {todos.map((todo, i) => (
-        <List todo={todo} deleteTodo={deleteTodo} n={i} key={i} up={up} />
+        <List
+          todo={todo}
+          deleteTodo={deleteTodo}
+          n={i}
+          key={i}
+          up={up}
+      
+        />
       ))}
+      <div style={{ display: hidden, marginLeft: "40px" }}>
+        <h2>是否要删除？</h2>
+        <button
+          onClick={() => {
+            setHidden("none");
+            todos.splice(n, 1);
+            setTodos([...todos]);
+           
+          }}
+        >
+          删除
+        </button>
+        <button
+          onClick={() => {
+            setHidden("none");
+          
+          }}
+          style={{ marginLeft: "10px" }}
+        >
+          取消
+        </button>
+      </div>
     </div>
   );
 }
