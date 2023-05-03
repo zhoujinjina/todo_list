@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "module": "ES6",
+        "target": "ES5",
+        "strict": true,
+        // "noEmitOnError": true,
+    },
+    "include": ["**/*"],
+    "exclude": ["../node_modules"]
+}

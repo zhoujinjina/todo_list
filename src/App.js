@@ -1,23 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from "react";
+import "./App.css";
+import Header from "./component/Header/header";
+import List from "./component/List/list";
+import PubSub from 'pubsub-js';
 function App() {
+
+  function deleteTodo(n) {
+    let con = prompt("是否删除");
+    if (con) {
+      todos.splice(n, 1);
+      setTodos([...todos]);
+      console.log(todos);
+    }
+  }
+  function add() {
+    const button = document.getElementById("header");
+    if (button.value) {
+      let obj = { content: button.value, isCompleted: false };
+      setTodos([...todos, obj]);
+      button.value = null;
+    }
+  }
+  function up(e) {
+    todos[e].isCompleted = !todos[e].isCompleted;
+    setTodos([...todos]);
+    console.log(todos);
+  }
+  function changevis(){
+    setVisble([false])
+    console.log("jjj")
+    console.log(visble)
+  }
+  const [todos, setTodos] = useState([
+    {
+      content: "Pick up dry cleaning",
+      isCompleted: true,
+    },
+    {
+      content: "Get haircut",
+      isCompleted: true,
+    },
+    {
+      content: "Build a todo app in React",
+      isCompleted: false,
+    },
+  ])
+  const [visble,setVisble]=useState(true)
+  ;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      
+      <Header add={add} />
+      {todos.map((todo, i) => (
+        <List todo={todo} deleteTodo={deleteTodo} n={i} key={i} up={up} />
+      ))}
     </div>
   );
 }
