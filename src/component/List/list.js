@@ -1,11 +1,11 @@
 import "./list.css"
 function List(props) {
-  let value=props.todo.isCompleted
+  const  {todo,deleteTodo,n,up}=props.all
   return (
     <div>
-      <input type="checkbox" id="check" checked={value} onChange={()=>{props.up(props.n)}}/>
-      <input className={value?"myText":null} type="text" value={props.todo.content} readOnly />
-      <button  onClick={()=>props.deleteTodo(props.n)} style={{color:"black",backgroundColor:"red"}}>删除</button>
+      <input type="checkbox" id="check" checked={todo.isCompleted} onChange={()=>{up(n)}}/>
+      <input className={todo.isCompleted?"myText":null} type="text" value={todo.content} readOnly />
+      <button  onClick={()=>deleteTodo(n)} style={{color:"black",backgroundColor:"red"}}>删除</button>
     </div>
   );
 }

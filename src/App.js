@@ -1,8 +1,7 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Header from "./component/Header/header";
-import List from "./component/List/list";
-// import PubSub from 'pubsub-js';
+import List from "./component/List/list";  
 function App() {
   const [hidden, setHidden] = useState("none");
   const [todos, setTodos] = useState([
@@ -42,14 +41,7 @@ function App() {
     <div>
       <Header add={add} />
       {todos.map((todo, i) => (
-        <List
-          todo={todo}
-          deleteTodo={deleteTodo}
-          n={i}
-          key={i}
-          up={up}
-      
-        />
+        <List key={i} all={{ todo, deleteTodo, n, up }} />
       ))}
       <div style={{ display: hidden, marginLeft: "40px" }}>
         <h2>是否要删除？</h2>
@@ -58,7 +50,6 @@ function App() {
             setHidden("none");
             todos.splice(n, 1);
             setTodos([...todos]);
-           
           }}
         >
           删除
@@ -66,7 +57,6 @@ function App() {
         <button
           onClick={() => {
             setHidden("none");
-          
           }}
           style={{ marginLeft: "10px" }}
         >
