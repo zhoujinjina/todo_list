@@ -32,19 +32,21 @@ function App() {
     }
   }
   function up(e) {
+    console.log(todos,e);
     todos[e].isCompleted = !todos[e].isCompleted;
     setTodos([...todos]);
-    console.log(todos);
+  
   }
 
   return (
     <div>
       <Header add={add} />
       {todos.map((todo, i) => (
-        <List key={i} all={{ todo, deleteTodo, n, up }} />
+        <List key={i} all={{ todo, deleteTodo, i,n, up }} />
       ))}
-      <div style={{ display: hidden, marginLeft: "40px" }}>
-        <h2>是否要删除？</h2>
+      <div style={{ display: hidden, marginLeft: "40px" ,border:"1px black solid",width:"150px",height:"130px",boxShadow:"2px 2px 10px 0.5 black " }}>
+     <div style={{textAlign:"center"}}>
+     <h2>是否要删除？</h2>
         <button
           onClick={() => {
             setHidden("none");
@@ -62,6 +64,7 @@ function App() {
         >
           取消
         </button>
+     </div>
       </div>
     </div>
   );
